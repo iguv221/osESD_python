@@ -103,9 +103,7 @@ def auto_osESD(dataset, data_name, plot=True, labeled=True, result_directory='au
 
     ### Read dataset.
     df = dataset
-    # data_name = dataset.split("//")[-1]
-    # print(data_name)
-    # adsaasd
+
     ### Add timestamps to dataset if not labeled.
     if timestamp_name in df.columns:
         df['timestamps'] = df[timestamp_name]
@@ -158,14 +156,6 @@ def auto_osESD(dataset, data_name, plot=True, labeled=True, result_directory='au
         maxrs.sort()
         alphas.sort()
 
-        
-
-        # new_sizes = []
-        # for i in sizes:
-        #     if i>=50:
-        #         new_sizes.append(i)
-        # sizes = new_sizes
-
         parameters = [
             ["--WindowSizes", sizes],
             ["--AndOr", conditions],
@@ -214,6 +204,6 @@ def auto_osESD(dataset, data_name, plot=True, labeled=True, result_directory='au
     print("Test successfully done.")
     print("Results can be seen in "+result_directory+" .")
 
-    return pred_index
+    return pred_index[0]
 
 
