@@ -57,34 +57,34 @@ def osESD(dataset, data_name, plot=False, labeled=True, result_directory='osESD_
                                     alpha=alpha, maxr=maxr)
     T2 = t.time()
 
-    ### Change the indices to a list of 0's and 1's of anomalies.
-    pred_index = data_aug.change_to_index(predictions, len(df))
-    pred_index = pred_index[size:]
+    # ### Change the indices to a list of 0's and 1's of anomalies.
+    # pred_index = data_aug.change_to_index(predictions, len(df))
+    # pred_index = pred_index[size:]
 
-    ### Export txt file.
-    Results = ""
-    if labeled:
-        real_index = df['anomaly'][size:]
-        results = scores_module.return_PRF_values(real_index, pred_index, T1, T2)
-        Results = '\nPrecision : {:.4f}, Recall : {:.4f}, F1-score : {:.4f}, Time {:.4f} (sec)'.format(results[2],results[3],results[4],results[5])
-        Results += "\n\nReal : [ "
-        reals = np.where(df['anomaly'] == 1)
-        Results += ', '.join([str(i) for i in reals[0]]) + " ]"
-    Results += "\n\nAnomalies : [ "
-    Results += ', '.join([str(i) for i in predictions]) + " ]"
+    # ### Export txt file.
+    # Results = ""
+    # if labeled:
+    #     real_index = df['anomaly'][size:]
+    #     results = scores_module.return_PRF_values(real_index, pred_index, T1, T2)
+    #     Results = '\nPrecision : {:.4f}, Recall : {:.4f}, F1-score : {:.4f}, Time {:.4f} (sec)'.format(results[2],results[3],results[4],results[5])
+    #     Results += "\n\nReal : [ "
+    #     reals = np.where(df['anomaly'] == 1)
+    #     Results += ', '.join([str(i) for i in reals[0]]) + " ]"
+    # Results += "\n\nAnomalies : [ "
+    # Results += ', '.join([str(i) for i in predictions]) + " ]"
 
-    file_path = result_directory+"//"+data_name+"_osESD_result.txt"
-    with open(file_path, "w") as file:
-        file.write(Results)
+    # file_path = result_directory+"//"+data_name+"_osESD_result.txt"
+    # with open(file_path, "w") as file:
+    #     file.write(Results)
 
-    ### Export plot
-    if plot:
-        df['predictions'] = data_aug.change_to_index(predictions, len(df))
-        plotting_modules.save_plot(data_path=data_name,column_name='predictions',
-                                   df=df,save_path=result_directory+'//', model_name='osESD')
+    # ### Export plot
+    # if plot:
+    #     df['predictions'] = data_aug.change_to_index(predictions, len(df))
+    #     plotting_modules.save_plot(data_path=data_name,column_name='predictions',
+    #                                df=df,save_path=result_directory+'//', model_name='osESD')
 
-    print("Test successfully done.")
-    print("Results can be seen in "+result_directory+" .")
+    # print("Test successfully done.")
+    # print("Results can be seen in "+result_directory+" .")
     return predictions
 
 
@@ -180,29 +180,29 @@ def auto_osESD(dataset, data_name, plot=True, labeled=True, result_directory='au
 
     pred_index = np.where(np.array(predictions)==1)
 
-    Results = ""
-    if labeled:
-        real_index = df['anomaly'][tuning_params[1]:]
-        results = scores_module.return_PRF_values(real_index, predictions[tuning_params[1]:], T1, T2)
-        Results = '\nPrecision : {:.4f}, Recall : {:.4f}, F1-score : {:.4f}, Time {:.4f} (sec)'.format(results[2],results[3],results[4],results[5])
-        Results += "\n\nReal : [ "
-        reals = np.where(df['anomaly'] == 1)
-        Results += ', '.join([str(i) for i in reals[0]]) + " ]"
+    # Results = ""
+    # if labeled:
+    #     real_index = df['anomaly'][tuning_params[1]:]
+    #     results = scores_module.return_PRF_values(real_index, predictions[tuning_params[1]:], T1, T2)
+    #     Results = '\nPrecision : {:.4f}, Recall : {:.4f}, F1-score : {:.4f}, Time {:.4f} (sec)'.format(results[2],results[3],results[4],results[5])
+    #     Results += "\n\nReal : [ "
+    #     reals = np.where(df['anomaly'] == 1)
+    #     Results += ', '.join([str(i) for i in reals[0]]) + " ]"
 
-    Results += "\n\nAnomalies : [ "
-    Results += ', '.join([str(i) for i in list(pred_index[0])]) + " ]"
+    # Results += "\n\nAnomalies : [ "
+    # Results += ', '.join([str(i) for i in list(pred_index[0])]) + " ]"
 
-    file_path = result_directory+"//"+data_name[:-4]+"_auto_osESD_result.txt"
-    with open(file_path, "w") as file:
-        file.write(Results)
+    # file_path = result_directory+"//"+data_name[:-4]+"_auto_osESD_result.txt"
+    # with open(file_path, "w") as file:
+    #     file.write(Results)
 
-    if plot:
-        df['predictions'] = predictions
-        plotting_modules.save_plot(data_path=data_name,column_name='predictions',
-                                   df=df,save_path=result_directory+'//', model_name='auto_osESD')
+    # if plot:
+    #     df['predictions'] = predictions
+    #     plotting_modules.save_plot(data_path=data_name,column_name='predictions',
+    #                                df=df,save_path=result_directory+'//', model_name='auto_osESD')
 
-    print("Test successfully done.")
-    print("Results can be seen in "+result_directory+" .")
+    # print("Test successfully done.")
+    # print("Results can be seen in "+result_directory+" .")
 
     return pred_index[0]
 
